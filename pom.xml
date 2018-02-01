@@ -1,0 +1,24 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.openlane.demo</groupId>
+  <artifactId>parent</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <description>Parent project where common maven configuration should be done</description>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <repo.url.snapshot>file:/home/musema/repo/snapshot</repo.url.snapshot>
+    <repo.url.release>file:/home/musema/repo/release</repo.url.release>
+  </properties>
+	<distributionManagement>
+		<repository>
+			<id>release-repo</id>
+			<url>${repo.url.release}</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshot-repo</id>
+			<url>${repo.url.snapshot}</url>
+		</snapshotRepository>
+	</distributionManagement>
+</project>
