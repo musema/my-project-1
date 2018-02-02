@@ -2,12 +2,13 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.openlane.demo</groupId>
   <artifactId>parent</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0.0</version>
   <packaging>pom</packaging>
   <description>Parent project where common maven configuration should be done</description>
   
    <scm>
   	<connection>scm:git:https://github.com/musema/parent.git</connection>
+    <tag>parent-1.0.0</tag>
   </scm>
   
   <properties>
