@@ -6,10 +6,21 @@
   <packaging>pom</packaging>
   <description>Parent project where common maven configuration should be done</description>
   
+   <scm>
+  	<connection>scm:git:https://github.com/musema/parent.git</connection>
+  </scm>
+  
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <repo.url.snapshot>file:/home/musema/repo/snapshot</repo.url.snapshot>
     <repo.url.release>file:/home/musema/repo/release</repo.url.release>
+  	
+  	<commons.logging.version>1.0</commons.logging.version>
+  	
+  	<version.source>1.5</version.source>
+  	<version.target>1.5</version.target>
+  	
+  	<version.junit>3.8.1</version.junit>
   </properties>
 	<distributionManagement>
 		<repository>
@@ -21,4 +32,79 @@
 			<url>${repo.url.snapshot}</url>
 		</snapshotRepository>
 	</distributionManagement>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+               <groupId>commons-logging</groupId>
+               <artifactId>commons-logging</artifactId>
+               <version>${commons.logging.version}</version>
+               <exclusions>
+                   <exclusion>
+                       <groupId>log4j</groupId>
+                       <artifactId>log4j</artifactId>
+                   </exclusion>
+                   <exclusion>
+                       <groupId>javax.servlet</groupId>
+                       <artifactId>servlet-api</artifactId>
+                   </exclusion>
+               </exclusions>
+           </dependency>
+           <dependency>
+	            <groupId>junit</groupId>
+	            <artifactId>junit</artifactId>
+	            <version>${version.junit}</version>
+	            <scope>test</scope>
+        </dependency>
+		</dependencies>
+	</dependencyManagement>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+	    </dependency>
+	    
+	</dependencies>
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>${version.source}</source>
+                        <target>${version.target}</target>
+                    </configuration>
+                </plugin>                
+                <plugin>
+			        <groupId>org.apache.maven.plugins</groupId>
+			        <artifactId>maven-release-plugin</artifactId>
+			        <version>2.5.3</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>2.3.1</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>index</report>
+							<report>dependencies</report>
+							<report>project-team</report>
+							<report>mailing-list</report>
+							<report>cim</report>
+							<report>issue-tracking</report>
+							<report>license</report>
+							<report>scm</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+		</plugins>
+	</reporting>
 </project>
