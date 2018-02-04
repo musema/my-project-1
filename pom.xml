@@ -13,26 +13,69 @@
   
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <repo.url.snapshot>file:/home/musema/repo/snapshot</repo.url.snapshot>
-    <repo.url.release>file:/home/musema/repo/release</repo.url.release>
+    <adesa.repo.snapshot.url>file:/home/musema/repo/snapshot</adesa.repo.snapshot.url>
+    <adesa.repo.release.url>file:/home/musema/repo/release</adesa.repo.release.url>
   	
   	<commons.logging.version>1.0</commons.logging.version>
   	
-  	<version.source>1.5</version.source>
-  	<version.target>1.5</version.target>
+  	<maven.compiler.source>1.7</maven.compiler.source>
+  	<maven.compiler.target>1.7</maven.compiler.target>
+  	<maven.release.plugin.version></maven.release.plugin.version>
+  	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   	
   	<version.junit>3.8.1</version.junit>
+  	
   </properties>
+  
+  	<repositories>
+  		<repository>
+	  		<releases>
+		        <enabled>false</enabled>
+		        <updatePolicy>always</updatePolicy>
+		        <checksumPolicy>warn</checksumPolicy>
+	      	</releases>
+	      	<snapshots>
+		        <enabled>true</enabled>
+		        <updatePolicy>never</updatePolicy>
+		        <checksumPolicy>fail</checksumPolicy>
+	      	</snapshots>
+	      	<id>adesa-repo-snapshot</id>
+	      	<name>ADESA Snapshot Repository</name>
+	      	<url>${adesa.repo.snapshot.url}</url>
+	      	<layout>default</layout>
+  		</repository>
+  		  <repository>
+	  		<releases>
+		        <enabled>true</enabled>
+		        <updatePolicy>always</updatePolicy>
+		        <checksumPolicy>warn</checksumPolicy>
+	      	</releases>
+	      	<snapshots>
+		        <enabled>true</enabled>
+		        <updatePolicy>never</updatePolicy>
+		        <checksumPolicy>fail</checksumPolicy>
+	      	</snapshots>
+	      	<id>adesa-repo-release</id>
+	      	<name>ADESA Corporate Repository</name>
+	      	<url>${adesa.repo.release.url}</url>
+	      	<layout>default</layout>
+  		</repository>
+  	</repositories>
 	<distributionManagement>
 		<repository>
-			<id>release-repo</id>
-			<url>${repo.url.release}</url>
+			<uniqueVersion>false</uniqueVersion>
+			<id>adesa-repo-release</id>
+			 <name>ADESA Corporate Repository</name>
+			<url>${adesa.repo.release.url}</url>
 		</repository>
 		<snapshotRepository>
+			<uniqueVersion>true</uniqueVersion>
 			<id>snapshot-repo</id>
-			<url>${repo.url.snapshot}</url>
+			 <name>ADESA Snapshot Repository</name>
+			<url>${adesa.repo.snapshot.url}</url>
 		</snapshotRepository>
 	</distributionManagement>
+	
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -63,8 +106,7 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
-	    </dependency>
-	    
+	    </dependency> 
 	</dependencies>
 	<build>
 		<pluginManagement>
@@ -73,14 +115,14 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <configuration>
-                        <source>${version.source}</source>
-                        <target>${version.target}</target>
+                        <source>${maven.compiler.source}</source>
+                        <target>${maven.compiler.target}</target>
                     </configuration>
                 </plugin>                
                 <plugin>
 			        <groupId>org.apache.maven.plugins</groupId>
 			        <artifactId>maven-release-plugin</artifactId>
-			        <version>2.5.3</version>
+			        <version>${maven.release.plugin.version}</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
