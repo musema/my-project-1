@@ -1,153 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.openlane.demo</groupId>
-  <artifactId>parent</artifactId>
-  <version>0.0.3-SNAPSHOT</version>
-  <packaging>pom</packaging>
-  <description>Parent project where common maven configuration should be done</description>
-  
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>com.openlane.demo</groupId>
+   <artifactId>openlane-parent</artifactId>
+   <version>0.0.4-SNAPSHOT</version>
+   <packaging>pom</packaging>
+   <name>OpenLane Parent</name>
+   <description>Parent project that will be inherited by all OpenLane projects</description>
+   <url>http://www.openlane.com/openlaneparent</url>
+   <inceptionYear>2017</inceptionYear>
+   <licenses>
+      <license>
+         <name>The ADESA License Version X</name>
+         <url>http://www.adesa.com/LicenseX.Y</url>
+         <distribution>repo</distribution>
+      </license>
+   </licenses>
+   <organization>
+      <name>ADESA</name>
+      <url>http://www.adesa.com</url>
+   </organization>
+   <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+      
+      <adesa.repo.snapshot.url>file:/home/musema/repo/snapshot</adesa.repo.snapshot.url>
+      <adesa.repo.release.url>file:/home/musema/repo/release</adesa.repo.release.url>
+      <adesa.ci.jenkins.url>http://localhost:8080</adesa.ci.jenkins.url>
+      <adesa.ci.jira.url>http://adesa/ci/jira</adesa.ci.jira.url>
+      <adesa.publish.site>file:/home/musema/repo/sites</adesa.publish.site>
+      
+      <maven.compiler.source>1.7</maven.compiler.source>
+      <maven.compiler.target>1.7</maven.compiler.target>
+      <maven.release.plugin.version>2.5.3</maven.release.plugin.version>
+      <maven.site.plugin.version>3.4</maven.site.plugin.version>
+      <maven.project.info.reports.plugin.version>2.9</maven.project.info.reports.plugin.version>
+      
+      <commons.logging.version>1.0</commons.logging.version>
+      <junit.version>3.8.1</junit.version>
+   </properties>
+   <developers>
+      <developer>
+         <id>ID-123</id>
+         <name>Jim Garlick</name>
+         <email>jim.garlick@openlane.com</email>
+         <timezone>-5</timezone>
+         <roles>
+            <role>Committer</role>
+            <role>Lead</role>
+         </roles>
+      </developer>
+      <developer>
+         <id>ID-124</id>
+         <name>Musema Hassen</name>
+         <email>musema.hassen@openlane.com</email>
+         <timezone>-5</timezone>
+         <roles>
+            <role>Committer</role>
+         </roles>
+      </developer>
+      <developer>
+         <id>ID-125</id>
+         <name>Boshu Liu</name>
+         <email>boshu.liu@openlane.com</email>
+         <timezone>-5</timezone>
+         <roles>
+            <role>Committer</role>
+         </roles>
+      </developer>
+   </developers>
+   <mailingLists>
+      <mailingList>
+         <name>OpenLane Developers</name>
+         <subscribe>sunscribe@developers.openlane.com</subscribe>
+         <unsubscribe>unsunscribe@developers.openlane.com</unsubscribe>
+         <post>post@developers.openlane.com</post>
+         <archive>archive@developers.openlane.com</archive>
+         <otherArchives />
+      </mailingList>
+      <mailingList>
+         <name>OpenLane Users</name>
+         <subscribe>sunscribe@users.openlane.com</subscribe>
+         <unsubscribe>unsunscribe@users.openlane.com</unsubscribe>
+         <post>post@users.openlane.com</post>
+         <archive>archive@users.openlane.com</archive>
+         <otherArchives />
+      </mailingList>
+   </mailingLists>
+   <issueManagement>
+      <system>jira</system>
+      <url>${adesa.ci.jira.url}</url>
+   </issueManagement>
+   <ciManagement>
+      <system>jenkins</system>
+      <url>${adesa.ci.jenkins.url}</url>
+      <notifiers>
+         <notifier>
+            <type />
+            <sendOnError />
+            <sendOnFailure />
+            <sendOnSuccess />
+            <sendOnWarning />
+            <address />
+            <configuration>
+               <key>value</key>
+            </configuration>
+         </notifier>
+      </notifiers>
+   </ciManagement>
    <scm>
-  	<connection>scm:git:https://github.com/musema/parent.git</connection>
-    <tag>HEAD</tag>
-  </scm>
-  
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <adesa.repo.snapshot.url>file:/home/musema/repo/snapshot</adesa.repo.snapshot.url>
-    <adesa.repo.release.url>file:/home/musema/repo/release</adesa.repo.release.url>
-  	
-  	<commons.logging.version>1.0</commons.logging.version>
-  	
-  	<maven.compiler.source>1.7</maven.compiler.source>
-  	<maven.compiler.target>1.7</maven.compiler.target>
-  	<maven.release.plugin.version>2.5.3</maven.release.plugin.version>
-  	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-  	
-  	<version.junit>3.8.1</version.junit>
-  	
-  </properties>
-  
-  	<repositories>
-  		<repository>
-	  		<releases>
-		        <enabled>false</enabled>
-		        <updatePolicy>always</updatePolicy>
-		        <checksumPolicy>warn</checksumPolicy>
-	      	</releases>
-	      	<snapshots>
-		        <enabled>true</enabled>
-		        <updatePolicy>never</updatePolicy>
-		        <checksumPolicy>fail</checksumPolicy>
-	      	</snapshots>
-	      	<id>adesa-repo-snapshot</id>
-	      	<name>ADESA Snapshot Repository</name>
-	      	<url>${adesa.repo.snapshot.url}</url>
-	      	<layout>default</layout>
-  		</repository>
-  		  <repository>
-	  		<releases>
-		        <enabled>true</enabled>
-		        <updatePolicy>always</updatePolicy>
-		        <checksumPolicy>warn</checksumPolicy>
-	      	</releases>
-	      	<snapshots>
-		        <enabled>true</enabled>
-		        <updatePolicy>never</updatePolicy>
-		        <checksumPolicy>fail</checksumPolicy>
-	      	</snapshots>
-	      	<id>adesa-repo-release</id>
-	      	<name>ADESA Corporate Repository</name>
-	      	<url>${adesa.repo.release.url}</url>
-	      	<layout>default</layout>
-  		</repository>
-  	</repositories>
-	<distributionManagement>
-		<repository>
-			<uniqueVersion>false</uniqueVersion>
-			<id>adesa-repo-release</id>
-			 <name>ADESA Corporate Repository</name>
-			<url>${adesa.repo.release.url}</url>
-		</repository>
-		<snapshotRepository>
-			<uniqueVersion>true</uniqueVersion>
-			<id>snapshot-repo</id>
-			 <name>ADESA Snapshot Repository</name>
-			<url>${adesa.repo.snapshot.url}</url>
-		</snapshotRepository>
-	</distributionManagement>
-	
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-               <groupId>commons-logging</groupId>
-               <artifactId>commons-logging</artifactId>
-               <version>${commons.logging.version}</version>
-               <exclusions>
-                   <exclusion>
-                       <groupId>log4j</groupId>
-                       <artifactId>log4j</artifactId>
-                   </exclusion>
-                   <exclusion>
-                       <groupId>javax.servlet</groupId>
-                       <artifactId>servlet-api</artifactId>
-                   </exclusion>
-               </exclusions>
-           </dependency>
-           <dependency>
-	            <groupId>junit</groupId>
-	            <artifactId>junit</artifactId>
-	            <version>${version.junit}</version>
-	            <scope>test</scope>
-        </dependency>
-		</dependencies>
-	</dependencyManagement>
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-	    </dependency> 
-	</dependencies>
-	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <source>${maven.compiler.source}</source>
-                        <target>${maven.compiler.target}</target>
-                    </configuration>
-                </plugin>                
-                <plugin>
-			        <groupId>org.apache.maven.plugins</groupId>
-			        <artifactId>maven-release-plugin</artifactId>
-			        <version>${maven.release.plugin.version}</version>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-project-info-reports-plugin</artifactId>
-				<version>2.3.1</version>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>index</report>
-							<report>dependencies</report>
-							<report>project-team</report>
-							<report>mailing-list</report>
-							<report>cim</report>
-							<report>issue-tracking</report>
-							<report>license</report>
-							<report>scm</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>
-		</plugins>
-	</reporting>
+      <connection>scm:git:https://github.com/musema/parent.git</connection>
+   </scm>
+   <repositories>
+      <repository>
+         <releases>
+            <enabled>false</enabled>
+            <updatePolicy>always</updatePolicy>
+            <checksumPolicy>warn</checksumPolicy>
+         </releases>
+         <snapshots>
+            <enabled>true</enabled>
+            <updatePolicy>never</updatePolicy>
+            <checksumPolicy>fail</checksumPolicy>
+         </snapshots>
+         <id>adesa-repo-snapshot</id>
+         <name>ADESA Snapshot Repository</name>
+         <url>${adesa.repo.snapshot.url}</url>
+         <layout>default</layout>
+      </repository>
+      <repository>
+         <releases>
+            <enabled>true</enabled>
+            <updatePolicy>always</updatePolicy>
+            <checksumPolicy>warn</checksumPolicy>
+         </releases>
+         <snapshots>
+            <enabled>true</enabled>
+            <updatePolicy>never</updatePolicy>
+            <checksumPolicy>fail</checksumPolicy>
+         </snapshots>
+         <id>adesa-repo-release</id>
+         <name>ADESA Corporate Repository</name>
+         <url>${adesa.repo.release.url}</url>
+         <layout>default</layout>
+      </repository>
+   </repositories>
+   <distributionManagement>
+      <repository>
+         <uniqueVersion>false</uniqueVersion>
+         <id>adesa-repo-release</id>
+         <name>ADESA Corporate Repository</name>
+         <url>${adesa.repo.release.url}</url>
+      </repository>
+      <snapshotRepository>
+         <uniqueVersion>true</uniqueVersion>
+         <id>snapshot-repo</id>
+         <name>ADESA Snapshot Repository</name>
+         <url>${adesa.repo.snapshot.url}</url>
+      </snapshotRepository>
+      <site>
+         <id>adesa-site</id>
+         <name>ADESA Project Publisher Site</name>
+         <url>${adesa.publish.site}</url>
+      </site>
+   </distributionManagement>
+   <dependencyManagement>
+      <dependencies>
+         <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>${commons.logging.version}</version>
+            <exclusions>
+               <exclusion>
+                  <groupId>log4j</groupId>
+                  <artifactId>log4j</artifactId>
+               </exclusion>
+               <exclusion>
+                  <groupId>javax.servlet</groupId>
+                  <artifactId>servlet-api</artifactId>
+               </exclusion>
+            </exclusions>
+         </dependency>
+         <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+         </dependency>
+      </dependencies>
+   </dependencyManagement>
+   <dependencies>
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <scope>test</scope>
+      </dependency>
+   </dependencies>
+   <build>
+      <pluginManagement>
+         <plugins>
+            <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-compiler-plugin</artifactId>
+               <configuration>
+                  <source>${maven.compiler.source}</source>
+                  <target>${maven.compiler.target}</target>
+               </configuration>
+            </plugin>
+            <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-release-plugin</artifactId>
+               <version>${maven.release.plugin.version}</version>
+            </plugin>
+            <plugin>
+               <artifactId>maven-site-plugin</artifactId>
+               <version>${maven.site.plugin.version}</version>
+            </plugin>
+         </plugins>
+      </pluginManagement>
+   </build>
+   <reporting>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-project-info-reports-plugin</artifactId>
+            <version>${maven.project.info.reports.plugin.version}</version>
+            <reportSets>
+               <reportSet>
+                  <reports>
+                     <report>index</report>
+                     <report>cim</report>
+                     <report>issue-tracking</report>
+                     <report>dependency-info</report>
+                     <report>dependencies</report>
+                     <report>dependency-convergence</report>
+                     <report>dependency-management</report>
+                     <report>distribution-management</report>
+                     <report>plugin-management</report>
+                     <report>project-team</report>
+                     <report>mailing-list</report>
+                     <report>plugins</report>
+                     <report>scm</report>
+                     <report>summary </report>
+                     <report>help</report>
+                     <report>license</report>
+                  </reports>
+               </reportSet>
+            </reportSets>
+         </plugin>
+      </plugins>
+   </reporting>
+   <profiles>
+      <profile>
+         <id>dev</id>
+         <activation />
+         <build>
+            <pluginManagement>
+               <plugins />
+            </pluginManagement>
+            <plugins />
+         </build>
+      </profile>
+      <profile>
+         <id>staging</id>
+         <activation />
+         <build>
+            <pluginManagement>
+               <plugins />
+            </pluginManagement>
+            <plugins />
+         </build>
+      </profile>
+      <profile>
+         <id>uat</id>
+         <activation />
+         <build>
+            <pluginManagement>
+               <plugins />
+            </pluginManagement>
+            <plugins />
+         </build>
+      </profile>
+      <profile>
+         <id>prod</id>
+         <activation />
+         <build>
+            <pluginManagement>
+               <plugins />
+            </pluginManagement>
+            <plugins />
+         </build>
+      </profile>
+   </profiles>
 </project>
