@@ -30,6 +30,9 @@
       <adesa.ci.jira.url>http://adesa/ci/jira</adesa.ci.jira.url>
       <adesa.publish.site>file:/home/musema/repo/sites</adesa.publish.site>
       
+      <adesa.email.developers>developers@adesa.com</adesa.email.developers>
+      <adesa.email.users>users@adesa.com</adesa.email.users>
+      
       <maven.compiler.source>1.7</maven.compiler.source>
       <maven.compiler.target>1.7</maven.compiler.target>
       <maven.release.plugin.version>2.5.3</maven.release.plugin.version>
@@ -37,7 +40,10 @@
       <maven.project.info.reports.plugin.version>2.9</maven.project.info.reports.plugin.version>
       <maven.surefire.report.plugin.version>2.20.1</maven.surefire.report.plugin.version>
       <maven.javadoc.plugin.version>3.0.0</maven.javadoc.plugin.version>
-      <cobertura.maven.plugin.version>2.7</cobertura.maven.plugin.version>
+      <maven.jxr.plugin.version>2.5</maven.jxr.plugin.version>
+      <maven.cobertura.plugin.version>2.7</maven.cobertura.plugin.version>
+      <maven.pmd.plugin.version>3.9.0</maven.pmd.plugin.version>
+      <maven.changes.plugin.version>2.12.1</maven.changes.plugin.version>
       
       <commons.logging.version>1.0</commons.logging.version>
       <junit.version>3.8.1</junit.version>
@@ -99,14 +105,15 @@
       <url>${adesa.ci.jenkins.url}</url>
       <notifiers>
          <notifier>
-            <type />
-            <sendOnError />
-            <sendOnFailure />
-            <sendOnSuccess />
-            <sendOnWarning />
-            <address />
+            <type>mail</type>
+            <sendOnError>true</sendOnError>
+            <sendOnFailure>true</sendOnFailure>
+            <sendOnSuccess>false</sendOnSuccess>
+            <sendOnWarning>true</sendOnWarning>
+            <address>${adesa.email.developers}</address>
             <configuration>
                <key>value</key>
+               <project>${project.artifactId}</project>
             </configuration>
          </notifier>
       </notifiers>
@@ -265,14 +272,55 @@
 	        </configuration>
        </plugin>
        <plugin>
+	        <groupId>org.apache.maven.plugins</groupId>
+	        <artifactId>maven-jxr-plugin</artifactId>
+	        <version>${maven.jxr.plugin.version}</version>
+	        <configuration>
+          		<linkJavadoc>true</linkJavadoc>
+	        </configuration>
+	        <reportSets>
+	            <reportSet>
+	              <id>aggregate</id>
+	              <reports>
+		              <report>aggregate</report>
+		              <report>test-aggregate</report>
+	             </reports>
+	            </reportSet>
+	         </reportSets>
+       </plugin>
+       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>cobertura-maven-plugin</artifactId>
-        <version>${cobertura.maven.plugin.version}</version>
+        <version>${maven.cobertura.plugin.version}</version>
         <reportSets>
           <reportSet>
             <reports>
               <report>cobertura</report>
               <report>cobertura-integration-test</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>${maven.pmd.plugin.version}</version>
+        <configuration>
+        	<!--add rulesets here like checkstyle -->
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-changes-plugin</artifactId>
+        <version>${maven.changes.plugin.version}</version>
+        <configuration>
+          <useJql>true</useJql>
+        </configuration>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>changes-report</report>
+              <report>jira-report</report>
             </reports>
           </reportSet>
         </reportSets>
