@@ -46,7 +46,7 @@
       <maven.changes.plugin.version>2.12.1</maven.changes.plugin.version>
       
       <commons.logging.version>1.0</commons.logging.version>
-      <junit.version>3.8.1</junit.version>
+      <junit.version>4.8.2</junit.version>
    </properties>
    <developers>
       <developer>
@@ -203,9 +203,9 @@
       <dependency>
          <groupId>junit</groupId>
          <artifactId>junit</artifactId>
-         <scope>test</scope>
       </dependency>
    </dependencies>
+   
    <build>
       <pluginManagement>
          <plugins>
