@@ -3,7 +3,7 @@
    <modelVersion>4.0.0</modelVersion>
    <groupId>com.openlane.demo</groupId>
    <artifactId>openlane-parent</artifactId>
-   <version>1.2.8</version>
+   <version>1.2.9-SNAPSHOT</version>
    <packaging>pom</packaging>
    <name>OpenLane Parent</name>
    <description>Parent project that will be inherited by all OpenLane projects</description>
@@ -120,7 +120,7 @@
    </ciManagement>
    <scm>
       <connection>scm:git:https://github.com/musema/parent.git</connection>
-     <tag>openlane-parent-1.2.8</tag>
+     <tag>HEAD</tag>
   </scm>
    <repositories>
       <repository>
