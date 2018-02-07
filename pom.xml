@@ -3,7 +3,7 @@
    <modelVersion>4.0.0</modelVersion>
    <groupId>com.openlane.demo</groupId>
    <artifactId>openlane-parent</artifactId>
-   <version>0.0.4-SNAPSHOT</version>
+   <version>1.2.6</version>
    <packaging>pom</packaging>
    <name>OpenLane Parent</name>
    <description>Parent project that will be inherited by all OpenLane projects</description>
@@ -330,7 +330,6 @@
    <profiles>
       <profile>
          <id>dev</id>
-         <activation />
          <build>
             <pluginManagement>
                <plugins />
@@ -340,7 +339,8 @@
       </profile>
       <profile>
          <id>staging</id>
-         <activation />
+         <activation>
+         </activation>
          <build>
             <pluginManagement>
                <plugins />
