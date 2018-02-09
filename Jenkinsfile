@@ -56,8 +56,10 @@ pipeline {
             }
         }
         stage('Archive'){
-            archive ‘*/target/**/*’
-            junit ‘*/target/surefire-reports/*.xml’
+            steps{
+                archive '*/target/**/*'
+                junit '*/target/surefire-reports/*.xml'
+            }
         }
     }
     post {
