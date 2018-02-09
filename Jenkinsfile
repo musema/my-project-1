@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
     tools {
@@ -28,7 +29,7 @@ pipeline {
         }
         stage("Package") {
             steps {
-                package()
+                packageArtifact()
             }
         }
         stage("Test"){
@@ -52,7 +53,7 @@ pipeline {
         }
         stage('Deploy To Dev'){
             when{
-                environment name:DEPLOY_TO_DEV, value:'yes'
+                environment name:'DEPLOY_TO_DEV', value:'yes'
             }
             steps{
                 deploy("DEV")
@@ -60,7 +61,7 @@ pipeline {
         }
         stage('Archive'){
             steps{
-                archiveArtifacts()
+                archiveTheBuild()
             }
         }
     }
@@ -90,20 +91,20 @@ def prepareWorkspace(){
 def checkoutCode(){
 
 }
-def package(){
+def packageArtifact(){
     sh 'mvn clean install'
     //sh 'mvn clean install -Dmaven.test.failure.ignore=true'
 }
 def runTest(){
-    mvn test
+    sh 'mvn test'
 }
 def uploadToRepository(){
     echo "We are publishing artifacts to Artifactory:uploadToRepository"
     echo "I need maven:${M2_HOME}"
 }
-def archiveArtifacts(){
+def archiveTheBuild(){
     archive '*/target/**/*'
-    junit '*/target/surefire-reports/*.xml'
+    //junit '*/target/surefire-reports/*.xml'
 
 }
 def deploy(deployTo){
