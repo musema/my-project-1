@@ -1,3 +1,4 @@
+#!/usr/bin/env groovy
 pipeline {
     agent any
     
@@ -9,12 +10,16 @@ pipeline {
         DEVELOPERS_EMAIL="musema.hassen@gmail.com"
         BRANCH="develop"
     }
+    options{
+        timeout(5,HOURS)
+    }
     stages {
         stage('Prepare'){
             parallel{
                 stage('Code-Checkout'){
                     steps{
                         echo "Checkout the source code from repository"
+                        echo "The current branch is:{branch}"
 
                     }
                 }
@@ -41,19 +46,27 @@ pipeline {
         stage("Upload to Repository"){
             steps{
                 echo 'We will be upload artifacts to repository here'
+                
             }
 
         }
         stage('Deploy To Dev'){
             steps{
-                echo 'We will be deploying to Development here'
+                echo 'Deploying artifact to Dev [mvn deploy]'
+                sh 'mvn deploy'
             }
+        }
+        stage('Archive'){
+            archive ‘*/target/**/*’
+            junit ‘*/target/surefire-reports/*.xml’
         }
     }
     post {
         always {
-            echo "We will be generating reports here"
+            echo "Generating junit reports"
+
             echo "Clean up the work space here"
+
         }
             success {
             echo "Sending SUCCESS email to {DEVELOPERS_EMAIL}"
